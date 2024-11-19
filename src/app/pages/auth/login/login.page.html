@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-css">
+      <ion-item lines="none">
+        <h3>Login</h3>
+      </ion-item>
+
+        <ion-label *ngIf="errorMsg" class="error">{{errorMsg}}</ion-label>
+
+        <ion-list>
+          <div *ngFor="let validation of validation_messages.email">
+            <ion-label class="error"
+            *ngIf="isSubmitted &&loginForm.get('email')?.hasError(validation.type)">
+            {{ validation.message }}
+            </ion-label>
+          </div>
+          <div *ngFor="let validation of validation_messages.password">
+            <ion-label class="error"
+            *ngIf="isSubmitted &&loginForm.get('password')?.hasError(validation.type)">
+            {{ validation.message }}
+            </ion-label>
+          </div>
+          <div *ngFor="let validation of validation_messages.termsconditions">
+            <ion-label class="error"
+            *ngIf="isSubmitted &&loginForm.get('termsconditions')?.hasError(validation.type)">
+            {{ validation.message }}
+            </ion-label>
+          </div>
+        </ion-list>
+
+      <ion-item no-padding lines="none">
+          <ion-input class="input-css" clearInput type="email"
+              size="10" required  name="email" maxlength="100"
+              formControlName="email" tabindex="1"
+              placeholder="Email..."
+              autofocus ></ion-input>
+      </ion-item>
+      <ion-item style="padding-bottom: 10px;" lines="none">
+          <ion-input type="password" class="input-css"
+              name="password" maxlength="60"
+              placeholder="Senha" formControlName="password"
+              tabindex="2" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="max-width: 210px;" class="ion-text-left">
+            <ion-checkbox labelPlacement="end" class="termsconditions-css ion-text-left"
+              color="primary" formControlName="termsconditions">
+                Termos de uso Emdias App
+          </ion-checkbox>
+       </ion-item>
+      <ion-item  lines="none" class="sitebtn">
+          <ion-button id="btnSpara" size="default"  tabindex="3"
+                type="submit">Login</ion-button>
+      </ion-item>
+      <ion-item  lines="none" style="font-size: 14px;">
+          <a  href="https://emdias.com.br/register" tabindex="4" class="link-css">Criar conta</a>
+          <span style="padding-right: 5px;padding-left: 10px; " >|</span>
+
+          <a href="#" tabindex="5" class="link-css" > Esqueceu a senha?</a>
+      </ion-item>
+
+  </form>
+
+</ion-content>

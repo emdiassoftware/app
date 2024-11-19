@@ -1,0 +1,96 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary" >
+    <ion-buttons slot="start">
+      <ion-button (click)="fecharModal()">
+        <ion-icon  name="chevron-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <ion-row class="banners">
+      <div align="center">
+          <img src="./assets/imgs/transacoes/entrada-white.png" alt="" height="90px">
+          <p color="white">
+            Novo recebimento
+          </p>
+      </div>
+  </ion-row>
+
+
+  <ion-list style="margin-top: 25px; padding: 2px; margin: 10px;">
+
+    <ion-item>
+      <ion-label>
+        <ion-text>Parcial</ion-text>
+        <p>
+          <ion-text>
+            Status Pagamento
+          </ion-text>
+        </p>
+      </ion-label>
+      <ion-text slot="end" color="primary">
+        R$ 200,00
+      </ion-text>
+    </ion-item>
+
+  </ion-list>
+
+
+  <ion-list lines="full" style="padding: 2px; margin: 40px 10px 10px 10px;">
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="people-circle-outline"></ion-icon>
+      <ion-label>Cliente</ion-label>
+      <ion-text slot="end" color="primary">
+        Mathias Abraam
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="layers-outline"></ion-icon>
+      <ion-label>Contrato</ion-label>
+      <ion-text slot="end" color="primary">
+        102930
+      </ion-text>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="checkmark-done-outline"></ion-icon>
+      <ion-label>Parcela</ion-label>
+      <ion-text slot="end" color="primary">
+        1 de 10
+      </ion-text>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+      <ion-label>Vencimento</ion-label>
+      <ion-text slot="end" color="primary">
+        10/10/2024
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon src="/assets/imgs/transacoes/extorno-white.png" slot="start" color="primary" name="calendar-outline"></ion-icon>
+      <ion-label>Baixa Pagamento</ion-label>
+      <ion-text slot="end" color="primary">
+        10/10/2024
+      </ion-text>
+    </ion-item>
+
+  </ion-list>
+
+  <div style="margin-top: 25px; " class="btnAcoes">
+    <ion-button color="success" style="" expand="full">Enviar Comprovante</ion-button>
+    <ion-button color="tertiary" style="" expand="full">Extornar pagamento</ion-button>
+    <ion-button fill="clear" style="margin-bottom: 40pxclear;"  (click)="fecharModal()" color="primary" expand="full">
+        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+        Voltar
+    </ion-button>
+  </div>
+
+</ion-content>

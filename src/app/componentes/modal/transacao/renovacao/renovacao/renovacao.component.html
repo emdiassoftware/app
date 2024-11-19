@@ -1,0 +1,192 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar  [color]="dataVencimentoMaiorQueHoje ? 'danger' : 'warning'" >
+    <ion-buttons slot="start">
+      <ion-button (click)="fecharModal()">
+        <ion-icon  name="chevron-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content color="secondary">
+  <ion-row  class="header-modal"  [ngClass]="{ 'danger': dataVencimentoMaiorQueHoje }">
+
+    <!-- Atrasado -->
+    <!--/ Atrasado -->
+
+
+    <div  align="center" [style.display]="dataVencimentoMaiorQueHoje ? 'block' : 'none'">
+      <div class="header">
+        <p color="white" style="margin-bottom: 1px;">
+          Juros à receber
+        </p>
+
+
+        <ion-label>
+          {{ valor_juros }}
+        </ion-label>
+        <p color="white" style="margin-top: 1px;;">
+          <small>Parcela</small> <br>
+          <small>{{ numero_parcela }} de {{ contrato_qtd_parcelas }}</small>
+      </div>
+    </div>
+
+    <!-- Não Atrasado -->
+      <div align="center"  [style.display]="dataVencimentoMaiorQueHoje ? 'none' : 'block'">
+          <div class="header">
+            <p color="white" style="margin-bottom: 1px;">
+              Valor à receber
+            </p>
+            <ion-label>
+             {{ valor_juros }}
+            </ion-label>
+            <p color="white" style="margin-top: 1px;;">
+              <small>Parcela</small> <br>
+              <small>{{ numero_parcela }} de {{ contrato_qtd_parcelas }}</small>
+            </p>
+          </div>
+      </div>
+      <!-- Não Atrasado -->
+  </ion-row>
+
+
+
+  <ion-list lines="full" style="padding: 2px; margin: 40px 10px 10px 10px;">
+
+    
+    <ion-item color="primary">
+      <ion-label>Tipo</ion-label>
+      <ion-text slot="end" color="white">
+        Renovação de Juros e Capital	
+      </ion-text>
+    </ion-item> 
+
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="people-circle-outline"></ion-icon>
+      <ion-label>Cliente</ion-label>
+      <ion-text slot="end" color="primary">
+        {{ cliente_nome }}
+      </ion-text>
+    </ion-item> 
+
+    <ion-item>
+      <ion-text slot="start">Capital Investido</ion-text>
+      <ion-text slot="end" color="primary">
+        R$ {{ array.contrato_valor }}
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-text slot="start">Juros do Contrato</ion-text>
+      <ion-text slot="end" color="primary">
+        {{ array.contrato_juros }} %
+      </ion-text>
+    </ion-item>
+
+    <ion-item [style.display]="jurosPorAtraso ? 'block' : 'none'">
+      <ion-text slot="start">Juros por Atraso</ion-text>
+      <ion-text slot="end" color="primary">
+        {{ array.contrato_juros_atraso_valor }} %
+      </ion-text>
+    </ion-item>
+
+    <ion-item  [style.display]="multaPorAtraso ? 'block' : 'none'">
+      <ion-text slot="start">Multa por Atraso R$</ion-text>
+      <ion-text slot="end" color="primary">
+        {{ array.contrato_multa_atraso_valor }}
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="layers-outline"></ion-icon>
+      <ion-label>Contrato</ion-label>
+      <ion-text slot="end" color="primary">
+        {{ contrato_id }}
+      </ion-text>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="checkmark-done-outline"></ion-icon>
+      <ion-label>Parcela</ion-label>
+      <ion-text slot="end" color="primary">
+        {{ numero_parcela }} de {{ contrato_qtd_parcelas }}
+      </ion-text>
+    </ion-item>
+
+    
+    <ion-item>
+      <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+      <ion-label>Vencimento</ion-label>
+      <ion-text slot="end" color="primary">
+        {{ data_vencimento_formatado }}
+      </ion-text>
+    </ion-item>
+
+  </ion-list>
+
+  <div #btnAcoes style="margin-top: 25px; " id="btnAcoes" class="btnAcoes">
+    <ion-button color="success" fill="outline" expand="block" (click)="enviarCobranca()" >
+        Enviar Cobrança
+        <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+    </ion-button>
+
+
+    <ion-button color="success"  expand="block" (click)="mostrarFormularioRenovacao()" >
+      <ion-icon slot="start" name="checkmark-done-circle-outline"></ion-icon>
+        Receber Juros %
+    </ion-button>
+    <ion-button fill="clear" style="margin-bottom: 40pxclear;"  (click)="fecharModal()" color="primary" expand="full">
+        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+        Voltar
+    </ion-button>
+  </div>
+
+
+
+
+  <!-- RECEBIMENTO -->
+  <div #formRenovacao id="formRenovacao" class="form" style="display: none;;">
+    <form #form="ngForm" (ngSubmit)="informarRenovacao()">
+      <ion-item class="ion-text-center">
+          <ion-label>Ao confirmar você informa que o valor de {{ valor_juros  }} entrará em seu caixa
+            e uma nova parcela será gerada automáticamente para a data de {{ data_proximo_vencimento }}</ion-label>
+      </ion-item>
+
+
+      <ion-button  *ngIf="form.valid" type="submit"  color="success" expand="block">
+        <ion-icon slot="start" name="checkmark-done-circle-outline"></ion-icon>
+         Confirmar Renovação
+        </ion-button>
+
+    </form>
+    <ion-button fill="clear" style="margin-bottom: 40pxclear;" (click)="ocultarFormularioRenovacao()" color="primary" expand="full">
+      <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+      Opções
+    </ion-button>
+
+ </div>
+
+
+
+
+
+</ion-content>
+
+
+<STYLE>
+  .custom-action-sheet-button {
+  color: #007bff; /* Cor do texto */
+}
+
+.custom-action-sheet-button:hover {
+  color: #0056b3; /* Cor do texto quando passar o mouse */
+}
+
+.custom-action-sheet-button.activated {
+  background-color: #f0f0f0; /* Cor de fundo quando o botão estiver ativado */
+}
+
+</STYLE>

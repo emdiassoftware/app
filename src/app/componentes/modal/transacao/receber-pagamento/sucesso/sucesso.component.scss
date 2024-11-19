@@ -1,0 +1,17 @@
+ion-content {
+
+    h4 {
+      color: var(--ion-color--primary)!important;
+    }
+    p {
+      color: var(--ion-color--primary)!important;
+    }
+
+
+    ion-button {
+      margin-left: 30px;
+      margin-right: 30px;
+      height: 45px ;
+      border-radius: 35px;
+    }
+}

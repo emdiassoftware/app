@@ -1,0 +1,31 @@
+<ion-content color="light">
+  <div class="divSucess" style="width: 100%; height: 70vh; padding-left: 30px; padding-right: 30px; text-align: center;" class="">
+      <img src="./assets/imgs/transacoes/recebimento/sucesso.png" alt="" style="height: 35%; margin-top: 160px;">
+      <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: -1px;">
+          Agendamento Efetuado
+      </h2>
+      <p>
+        A parcela
+        foi renovada com sucesso!  <br>
+
+          <!-- A parcela 2 do contrato que tem como cliente: <br> {{ lancamento.cliente_nome   }} foi renovada com sucesso! -->
+          <!-- // aqui preciso que exista uma lógica, caso o campo this.valor_coletado for maior que zero ou diferente de nulo, preciso que apareça \/ -->
+          <!-- O valor de {{  lancamento.valor_coletado  }} foi adicionado à seu caixa -->
+
+
+      </p>
+
+        <ion-button (click)="cobrar()" expand="block" color="primary" size="big" shape="round" fill="outline" style="margin-top:-2px;">
+              Continuar recebendo
+            <ion-icon slot="end" name="cash-outline"></ion-icon>
+        </ion-button>
+  </div>
+
+  <div>
+
+        <ion-button  (click)="fecharModal()" fill="clear" style="margin-bottom: 40px;" color="primary" expand="full">
+           <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+              Início
+        </ion-button>
+    </div>
+</ion-content>

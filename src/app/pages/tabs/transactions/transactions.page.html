@@ -1,0 +1,70 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar>
+    <!-- <ion-title color="primary"> </ion-title> -->
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment mode="ios"  [value]="segmentValue" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="in">
+        <ion-label>Vencidos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="out">
+        <ion-label>Futuros</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content color="secondary" fullscreen>
+
+
+  <ion-searchbar  placeholder="Cliente"  (ionInput)="searchTransactions($event)" debounce="500"></ion-searchbar>
+
+
+
+
+<ion-list class="transactions" *ngIf="transactions && transactions.length > 0;  else noLancamentos">
+
+      <ion-item lines="full" *ngFor="let lancamento of transactions" (click)="detalhesTransacao(lancamento.id)" >
+        <ion-label>
+          <ion-text style="font-weight: bold; color: black;">
+              {{ lancamento?.cliente_nome }}
+              <br>
+              <small>{{ lancamento?.cliente_cpf }}</small>
+          </ion-text>
+          <p>
+            <ion-text>{{ lancamento?.data_vencimento }}</ion-text>
+          </p>
+        </ion-label>
+        <ion-text slot="end">
+          {{ lancamento.valor_restante }}
+          <br>
+          <small>{{ lancamento.status }}</small>
+          <p>
+            <!-- <ion-text>{{ lancamento?.data_vencimento_convertida === hoje_agora ? 'Hoje' : (lancamento.data_vencimento_convertida < hoje_agora ? 'Atrasado' : lancamento.status) }}</ion-text> -->
+          </p>
+        </ion-text>
+      </ion-item>
+        
+    
+  </ion-list>
+
+  
+
+  <ng-template #noLancamentos>
+    <div style="height:350px; margin: auto; text-align: center; width: 100%!important;">
+      <img src="./assets/imgs/sem-lancamentos.png" alt="Sem cobranças vencidas" style="height:200px!important; margin-top: 50px;">
+      <br>
+      <ion-label style="margin-top: 30px; font-weight: 400;" color="primary">
+        Lançamentos não localizados
+      </ion-label>
+      <br>
+      <ion-button (click)="atualizarDashboard()" shape="round" fill="outline" size="small" color="primary" style="border-radius: 25px!important; text-transform: capitalize;">
+        Atualizar
+      </ion-button>
+    </div>
+  </ng-template>
+
+
+</ion-content>

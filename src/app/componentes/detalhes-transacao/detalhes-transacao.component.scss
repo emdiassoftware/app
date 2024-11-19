@@ -1,0 +1,29 @@
+ion-row.banners {
+  position: relative;
+  height: 24vh;
+  background: var(--ion-color-primary);
+
+    div {
+      width: 100%;
+
+        p {
+          font-size: 1rem;
+          color: white;
+        }
+    }
+
+    ion-list {
+      border-radius: 6vh 6vh 0 0;
+
+      ion-list-header {
+          padding-inline-start: 3.5vh;
+      }
+    }
+
+}
+
+div.btnAcoes {
+  ion-button {
+    border-radius: 15px;
+  }
+}

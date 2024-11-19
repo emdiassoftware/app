@@ -1,0 +1,137 @@
+<!-- <ion-content #introducao style="display:block">
+
+</ion-content> -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title mode="md" class="">
+      <ion-label>
+        <ion-text color="tertiary" color="white" style="color: white;">Bem vindo(a)</ion-text>
+
+            <p *ngIf="usuario.name" color="white" style="color:white">{{ usuario.name }}</p>
+
+      </ion-label>
+    </ion-title>
+    <ion-avatar slot="end">
+      <img src="assets/imgs/img.png" />
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <div #banner id="banner">
+    <ion-row class="banners">
+      <swiper [config]="bannerConfig" *ngIf="dataLoaded ">
+        <ng-template swiperSlide *ngFor="let resumo of resumo_geral">
+          <div align="center">
+            <ion-label>
+              <span>{{ resumo.tipo_resumo }}</span>
+              <p class="acc-amt"><ion-text color="white">R${{resumo?.valor}}</ion-text></p>
+              <span>{{resumo?.qtd}} parcelas</span>
+            </ion-label>
+          </div>
+        </ng-template>
+      </swiper>
+    </ion-row>
+  </div>
+
+
+
+  <ion-row class="ion-text-center feature-list" *ngIf="features && features.length > 0">
+    <swiper [config]="featureConfig">
+      <ng-template swiperSlide *ngFor="let feature of features">
+        <div class="ion-color-primary-tint" color="primary-tint">
+          <ion-button slot="icon-only" color="secondary"  (click)="chamaTela(feature?.redirect)">
+            <ion-icon [name]="feature?.icon"></ion-icon>
+          </ion-button>
+          <ion-label>{{feature?.name}}</ion-label>
+        </div>
+      </ng-template>
+    </swiper>
+  </ion-row>
+
+
+  <ion-row class="ion-text-center feature-list" *ngIf="features_two && features_two.length > 0"  style="margin-top: -50px;">
+    <swiper [config]="featureConfig">
+      <ng-template swiperSlide *ngFor="let feature of features_two">
+        <div class="ion-color-primary-tint">
+          <ion-button  color="secondary" slot="icon-only">
+            <ion-icon [name]="feature?.icon"></ion-icon>
+          </ion-button>
+          <ion-label>{{feature?.name}}</ion-label>
+        </div>
+      </ng-template>
+    </swiper>
+  </ion-row>
+
+  <ion-list class="transactions" *ngIf="transactions && transactions.length > 0">
+    <ion-list-header *ngIf="lancamentos && lancamentos.length > 0">
+      <ion-label color="medium">Vencimentos à cobrar</ion-label>
+    </ion-list-header>
+
+    <ion-item-group *ngIf="lancamentos && lancamentos.length > 0; else noLancamentos" >
+
+      <ion-item lines="full" *ngFor="let lancamento of lancamentos" (click)="detalhesTransacao(lancamento.id)">
+        <ion-label>
+          <ion-text>{{ lancamento?.cliente_nome }}</ion-text>
+          <p>
+            <ion-text>{{ lancamento?.data_vencimento }}</ion-text>
+          </p>
+        </ion-label>
+        <ion-text slot="end" [color]="getDateColor(lancamento.data_vencimento_convertida)">
+          {{ lancamento.valor_restante }}
+          <p>
+            <ion-text>{{ lancamento?.data_vencimento_convertida === hoje_agora ? 'Hoje' : (lancamento.data_vencimento_convertida < hoje_agora ? 'Atrasado' : lancamento.status) }}</ion-text>
+          </p>
+        </ion-text>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+
+  <ng-template #noLancamentos>
+    <div style="height:350px; margin: auto; text-align: center; width: 100%!important;">
+      <img src="./assets/imgs/sem-lancamentos.png" alt="Sem cobranças vencidas" style="height:200px!important; margin-top: 50px;">
+      <br>
+      <ion-label style="margin-top: 30px; font-weight: 400;" color="primary">
+        Lançamentos não localizados
+      </ion-label>
+      <br>
+      <ion-button (click)="atualizarDashboard()" shape="round" fill="outline" size="small" color="primary" style="border-radius: 25px!important; text-transform: capitalize;">
+        Atualizar
+      </ion-button>
+    </div>
+  </ng-template>
+
+
+
+</ion-content>
+<style>
+  /* Estilos de esqueletos */
+.skeleton-placeholder {
+  background-color: #6e03b5;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 20px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.skeleton-amount {
+  width: 60%;
+  height: 16px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.skeleton-quantity {
+  width: 40%;
+  height: 16px;
+  border-radius: 4px;
+}
+
+</style>
