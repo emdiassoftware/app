@@ -1,6 +1,7 @@
 {
   "appId": "11f9b1ab",
   "name": "app",
+  "type": "ionic-angular",
   "ios": {
     "path": "ios/App"
   }
