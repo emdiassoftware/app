@@ -1,6 +1,7 @@
 {
-    "ios": {
-      "path": "ios/App"
-    }
+  "appId": "11f9b1ab",
+  "name": "app",
+  "ios": {
+    "path": "ios/App"
   }
-  
+}
